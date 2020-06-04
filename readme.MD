@@ -1,7 +1,6 @@
 23MAY20: JOR
-SerialMUX
 Created this as a Kplex replacement.
-Working, tested on Raspbian Buster, vanilla.
+Wotking, tested on Raspbian Buster, vanilla.
 This version setup to take a GPS on one serial port and the Magnetometer on the other.
 
 SerialMUX2
