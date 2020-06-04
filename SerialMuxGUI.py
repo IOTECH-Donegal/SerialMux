@@ -61,7 +61,6 @@ class App(tk.Tk):
         self.close_button.pack(fill='x')
 
     def process_serial1(self):
-        value = True
         while self.queue1.qsize():
             try:
                 new = self.queue1.get()
@@ -73,7 +72,6 @@ class App(tk.Tk):
         self.after(10, self.process_serial1)
 
     def process_serial2(self):
-        value = True
         while self.queue2.qsize():
             try:
                 new = self.queue2.get()

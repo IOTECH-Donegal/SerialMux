@@ -12,8 +12,6 @@ from datetime import datetime
 import sys
 import socket
 import serial
-import time
-# from Classes import Serial, Utilities
 
 # Create the log file and open it
 output_filename = "logfile.txt"
