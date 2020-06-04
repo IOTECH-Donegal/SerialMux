@@ -28,6 +28,7 @@ print("Expecting to find UDP receiver at " + kplex_IPv4 + ":" + str(kplex_Port))
 
 # Configure the first serial port, this should be the master GPS
 Serial_Port1 = serial.Serial(
+    # port='COM10',
     port='/dev/ttyACM0',
     baudrate=9600,
     parity=serial.PARITY_NONE,
@@ -41,6 +42,7 @@ Serial_Port1.flushInput()
 
 # Configure the second serial port
 Serial_Port2 = serial.Serial(
+    # port='COM11',
     port='/dev/ttyUSB0',
     baudrate=9600,
     parity=serial.PARITY_NONE,
