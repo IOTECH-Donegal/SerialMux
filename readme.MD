@@ -12,5 +12,14 @@
 ## SerialMuxGUI
 - Works on Windows, hangs on Ubuntu, not ready for use!
 
+## SetUTC
+The problem with a PI is no RTC, and OpenCPN doesn't time sync!
+Solution is create an autoexec.bat file for linux
+- Copy SetUTC.py to /home/pi
+- Copy jor.sh to /home/pi 
+- edit /etc/rc.local and add
+  sudo /home/pi/jor.sh
+
+
 
 
