@@ -7,18 +7,18 @@
 
 HOMEPATH="/home/pi"
 
+echo "Backing up existing log file"
+DIRECTORYNAME=`date '+%Y%m%d'`
+FILENAME=`date '+%H%M'`
+
+echo "Creating directory "$DIRECTORYNAME
+echo "Saving configuration as "$FILENAME
+
+mkdir $HOMEPATH/$DIRECTORYNAME
+cp $HOMEPATH/survey.log $HOMEPATH/$DIRECTORYNAME/$HOSTNAME-$FILENAME
+cat /dev/null > $HOMEPATH/survey.log
+
 echo "Setting time from GPS"
-sudo python3 $HOMEPATH/SetUTC.py  
+sleep 20
+sudo python3 $HOMEPATH/SetUTC.py 2>$HOMEPATH/SetUTC.err
 
-
-#echo "Saving any existing logfiles"
-
-#DIRECTORYNAME=`date '+%Y%m%d'`
-#FILENAME=`date '+%H%M'`
-
-#echo "Creating directory "$DIRECTORYNAME
-#echo "Saving configuration as "$FILENAME
-
-#mkdir $HOMEPATH/$DIRECTORYNAME
-#cp $HOMEPATH/survey.log $HOMEPATH/$DIRECTORYNAME/$HOSTNAME-$FILENAME
-#cat /dev/null > $HOMEPATH/survey.log

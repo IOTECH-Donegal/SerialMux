@@ -16,6 +16,7 @@ print('Accuracy no better than 1 second')
 try:
 
     # Configure the first serial port, this should be the master GPS
+    # UBlox defaults to ttyACM0
     Serial_Port1 = serial.Serial(
         # port='COM10',
         port='/dev/ttyACM0',
@@ -25,7 +26,7 @@ try:
         bytesize=serial.EIGHTBITS,
         rtscts=True,
         dsrdtr=True,
-        timeout=.1
+        timeout=1
     )
     Serial_Port1.flushInput()
 
