@@ -42,21 +42,6 @@ Serial_Port1 = serial.Serial(
 )
 Serial_Port1.flushInput()
 
-# Configure the second serial port
-# A RS232-USB dongle should be ttyUSBx
-Serial_Port2 = serial.Serial(
-    # port='COM11',
-    port='/dev/ttyUSB0',
-    baudrate=9600,
-    parity=serial.PARITY_NONE,
-    stopbits=serial.STOPBITS_ONE,
-    bytesize=serial.EIGHTBITS,
-    rtscts=True,
-    dsrdtr=True,
-    timeout=.1
-)
-Serial_Port2.flushInput()
-
 # Main Loop
 try:
     print("press [ctrl][c] at any time to exit...")
@@ -75,21 +60,6 @@ try:
                 print("Main loop error: ", sys.exc_info()[0])
             finally:
                 read_buffer1 = Serial_Port1.readline().decode('ascii', errors='replace')
-
-            # Receive data from serial link 2
-            read_buffer2 = Serial_Port2.readline().decode('ascii', errors='replace')
-            while len(read_buffer2) != 0:
-                try:
-                    current_line = str(read_buffer2)
-                    # Send to UDP server
-                    sock.sendto(bytes(current_line, "utf-8"), (kplex_IPv4, kplex_Port))
-                    # Log the data
-                    output_file.writelines(current_line)
-                    print('Magnetometer:' + current_line.strip())
-                except Exception as error:
-                    print("Main loop error: ", sys.exc_info()[0])
-                finally:
-                    read_buffer2 = Serial_Port2.readline().decode('ascii', errors='replace')
 
 except KeyboardInterrupt:
     print("\n" + "Caught keyboard interrupt, exiting")
