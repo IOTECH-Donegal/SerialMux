@@ -44,10 +44,11 @@ Serial_Port1.flushInput()
 
 # Configure the second serial port
 # A RS232-USB dongle should be ttyUSBx
+# A Zihatec RS422 converter is ttyS0 and 4800
 Serial_Port2 = serial.Serial(
     # port='COM11',
-    port='/dev/ttyUSB0',
-    baudrate=9600,
+    port='/dev/ttyS0',
+    baudrate=4800,
     parity=serial.PARITY_NONE,
     stopbits=serial.STOPBITS_ONE,
     bytesize=serial.EIGHTBITS,
@@ -76,20 +77,20 @@ try:
             finally:
                 read_buffer1 = Serial_Port1.readline().decode('ascii', errors='replace')
 
-            # Receive data from serial link 2
-            read_buffer2 = Serial_Port2.readline().decode('ascii', errors='replace')
-            while len(read_buffer2) != 0:
-                try:
-                    current_line = str(read_buffer2)
-                    # Send to UDP server
-                    sock.sendto(bytes(current_line, "utf-8"), (kplex_IPv4, kplex_Port))
-                    # Log the data
-                    output_file.writelines(current_line)
-                    print('Magnetometer:' + current_line.strip())
-                except Exception as error:
-                    print("Main loop error: ", sys.exc_info()[0])
-                finally:
-                    read_buffer2 = Serial_Port2.readline().decode('ascii', errors='replace')
+        # Receive data from serial link 2
+        read_buffer2 = Serial_Port2.readline().decode('ascii', errors='replace')
+        while len(read_buffer2) != 0:
+            try:
+                current_line = str(read_buffer2)
+                # Send to UDP server
+                sock.sendto(bytes(current_line, "utf-8"), (kplex_IPv4, kplex_Port))
+                # Log the data
+                output_file.writelines(current_line)
+                print('Magnetometer:' + current_line.strip())
+            except Exception as error:
+                print("Main loop error: ", sys.exc_info()[0])
+            finally:
+                read_buffer2 = Serial_Port2.readline().decode('ascii', errors='replace')
 
 except KeyboardInterrupt:
     print("\n" + "Caught keyboard interrupt, exiting")
